@@ -19,8 +19,11 @@ jobs:
       - name: Build .htaccess
         run: ./bin/build.sh test/conf/.htaccess test/build/htaccess_fixture.conf
 
+      - name: Install k6
+        uses: grafana/setup-k6-action@v1
+
       - name: Test with server-configs-test
-        uses: h5bp/server-configs-test@7.0.0
+        uses: h5bp/server-configs-test@8.0.0
         with:
           command: test
           server: httpd
@@ -29,7 +32,7 @@ jobs:
           tests: basic-file-access:cache-busting:custom-errors:forbidden-files:enforce-gzip:precompressed-files-gzip:concatenation
 
       - name: Benchmark
-        uses: h5bp/server-configs-test@7.0.0
+        uses: h5bp/server-configs-test@8.0.0
         with:
           command: benchmark
           server: httpd
